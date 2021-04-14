@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+GRUPPE=10d1
+
+# No clue whether this is a stable and updated URL.
+# I got the URL from https://www.dr.dk/nyheder/indland/slutdato-vacciner-skydes-til-august-se-din-nye-vaccinetid-her.
+URL=https://storage.googleapis.com/sheet-parser/b733c3fc0bc9599764b58100308f7b7e-datatilvaccinekv3-data.json
+
+DATA=$(curl -s "${URL}" | jq ".data[] | select(.nummer==\"${GRUPPE}\")")
+
+echo -n 💉
+date -d "$(echo "${DATA}" | jq -r '.["førstestikstart"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+echo ---
+echo '<b>Første stik</b>'
+echo -n Start:
+date -d "$(echo "${DATA}" | jq -r '.["førstestikstart"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+echo -n Slut:
+date -d "$(echo "${DATA}" | jq -r '.["førstestikslut"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+echo ---
+echo '<b>Andet stik</b>'
+echo -n Start:
+date -d "$(echo "${DATA}" | jq -r '.["andetstikstart"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+echo -n Slut:
+date -d "$(echo "${DATA}" | jq -r '.["andetstikslut"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+echo ---
+echo 'Refresh|refresh=true'
