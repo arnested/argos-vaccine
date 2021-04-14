@@ -8,19 +8,19 @@ URL=https://storage.googleapis.com/sheet-parser/b733c3fc0bc9599764b58100308f7b7e
 
 DATA=$(curl -s "${URL}" | jq ".data[] | select(.nummer==\"${GRUPPE}\")")
 
-echo -n 💉
+echo -n ':syringe: '
 date -d "$(echo "${DATA}" | jq -r '.["førstestikstart"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
 echo ---
 echo '<b>Første stik</b>'
 echo -n Start:
-date -d "$(echo "${DATA}" | jq -r '.["førstestikstart"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+date -d "$(echo "${DATA}" | jq -r '.["førstestikstart"]')" '+ %-d. %B %Y' 2> /dev/null || echo ' N/A'
 echo -n Slut:
-date -d "$(echo "${DATA}" | jq -r '.["førstestikslut"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+date -d "$(echo "${DATA}" | jq -r '.["førstestikslut"]')" '+ %-d. %B %Y' 2> /dev/null || echo ' N/A'
 echo ---
 echo '<b>Andet stik</b>'
 echo -n Start:
-date -d "$(echo "${DATA}" | jq -r '.["andetstikstart"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+date -d "$(echo "${DATA}" | jq -r '.["andetstikstart"]')" '+ %-d. %B %Y' 2> /dev/null || echo ' N/A'
 echo -n Slut:
-date -d "$(echo "${DATA}" | jq -r '.["andetstikslut"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
+date -d "$(echo "${DATA}" | jq -r '.["andetstikslut"]')" '+ %-d. %B %Y' 2> /dev/null || echo ' N/A'
 echo ---
-echo 'Refresh|refresh=true'
+echo 'Genindlæs|refresh=true'

@@ -9,7 +9,7 @@ Hardcoded for vaccination group 10d1.
 I have no clue whether the URL the data is pulled from is stable or
 regularly updated.
 
-![Screenshot of Argos plugin](vaccine.jpg)
+![Screenshot of Argos plugin](vaccine.png)
 
 ## Troubleshooting
 
