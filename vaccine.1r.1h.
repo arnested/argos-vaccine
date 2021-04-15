@@ -6,9 +6,19 @@ GRUPPE=10d1
 # I got the URL from https://www.dr.dk/nyheder/indland/slutdato-vacciner-skydes-til-august-se-din-nye-vaccinetid-her.
 URL=https://storage.googleapis.com/sheet-parser/b733c3fc0bc9599764b58100308f7b7e-datatilvaccinekv3-data.json
 
-DATA=$(curl -s "${URL}" | jq ".data[] | select(.nummer==\"${GRUPPE}\")")
-
 echo -n ':syringe: '
+
+ALL_DATA=$(curl --fail -s "${URL}")
+OK=$?
+if [ "${OK}" -ne "0" ]; then
+    echo "fejl ${OK}"
+    echo ---
+    echo 'Genindlæs|refresh=true'
+    exit "${OK}"
+fi
+
+DATA=$(echo "${ALL_DATA}" | jq ".data[] | select(.nummer==\"${GRUPPE}\")")
+
 date -d "$(echo "${DATA}" | jq -r '.["førstestikstart"]')" '+ %-d. %B' 2> /dev/null || echo ' N/A'
 echo ---
 echo '<b>Første stik</b>'
