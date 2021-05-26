@@ -1,3 +1,5 @@
+Archived: I have booked my vaccination now.
+
 # Argos plugin for Danish COVID-19 vaccination plan
 
 A plugin for [Argos](https://github.com/p-e-w/argos).
